@@ -56,6 +56,7 @@ public class ALCameraViewController: UIViewController {
     let flashButton = UIButton()
     
     var onCompletion: ALCameraViewCompletion?
+    var savePhoto = true
     var allowCropping = false
     
     var verticalPadding: CGFloat = 30
@@ -69,6 +70,16 @@ public class ALCameraViewController: UIViewController {
     }()
     
     let volume = AVAudioSession.sharedInstance().outputVolume
+    
+    public init(savePhoto save: Bool, croppingEnabled: Bool = false, allowsLibraryAccess: Bool = true, completion: ALCameraViewCompletion) {
+        super.init(nibName: nil, bundle: nil)
+        savePhoto = save
+        onCompletion = completion
+        allowCropping = croppingEnabled
+        libraryButton.enabled = allowsLibraryAccess
+        libraryButton.hidden = !allowsLibraryAccess
+        commonInit()
+    }
     
     public init(croppingEnabled: Bool, allowsLibraryAccess: Bool = true, completion: ALCameraViewCompletion) {
         super.init(nibName: nil, bundle: nil)

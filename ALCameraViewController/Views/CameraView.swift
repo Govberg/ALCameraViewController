@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 
+
 public class CameraView: UIView {
     
     var session: AVCaptureSession!
@@ -24,9 +25,11 @@ public class CameraView: UIView {
     public var currentPosition = AVCaptureDevicePosition.Back
     
     public func startSession() {
-        dispatch_async(cameraQueue) {
-            self.createSession()
-            self.session?.startRunning()
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            dispatch_async(cameraQueue) {
+                self.createSession()
+                self.session?.startRunning()
+            }
         }
     }
     
